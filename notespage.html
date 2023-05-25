@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Notes page</title>
+    <style>
+      /*navbar style*/
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100%;
+        width: 100%;
+        background-color: #1e83cd;
+        box-sizing: border-box;
+      }
+
+      .navbar {
+        background-color: #333;
+        overflow: hidden;
+      }
+
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      /* notes page style*/
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        margin-top: 100px;
+        margin-bottom: 150px;
+        padding: 20px;
+      }
+
+      .note {
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .note input[type="text"],
+      .note textarea {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 5px;
+        box-sizing: border-box;
+      }
+
+      .note .buttons {
+        text-align: right;
+      }
+
+      .note .buttons button {
+        margin-left: 5px;
+      }
+      /* footer style*/
+      .footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 0%;
+      }
+    </style>
+  </head>
+  <body>
+    <!--navbar page-->
+    <div class="navbar">
+      <a href="frontpage.html">Login</a>
+      <a href="quizpage.html">QuizPage</a>
+      <a href="notespage.html">NotesPage</a>
+    </div>
+    <!--notes page-->
+    <div class="container">
+      <h2>My Notes</h2>
+
+      <div id="notesContainer">
+        <!-- Notes will be dynamically added here -->
+      </div>
+
+      <div class="note">
+        <input type="text" id="titleInput" placeholder="Title" />
+        <textarea id="contentInput" placeholder="Content"></textarea>
+        <div class="buttons">
+          <button onclick="addNote()">Add Note</button>
+          <button onclick="clearInputs()">Clear</button>
+        </div>
+      </div>
+    </div>
+    <!--footer page-->
+    <div class="footer">
+      <p>&copy; 2023 Education Website. All rights reserved.</p>
+    </div>
+    <!-- Rest of the page content goes here -->
+
+    <script>
+      //notes page
+      function addNote() {
+        var titleInput = document.getElementById("titleInput");
+        var contentInput = document.getElementById("contentInput");
+
+        var title = titleInput.value;
+        var content = contentInput.value;
+
+        if (title && content) {
+          var note = document.createElement("div");
+          note.classList.add("note");
+          note.innerHTML = "<h3>" + title + "</h3><p>" + content + "</p>";
+
+          var notesContainer = document.getElementById("notesContainer");
+          notesContainer.appendChild(note);
+
+          clearInputs();
+        }
+      }
+
+      function clearInputs() {
+        document.getElementById("titleInput").value = "";
+        document.getElementById("contentInput").value = "";
+      }
+    </script>
+  </body>
+</html>
