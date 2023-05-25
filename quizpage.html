@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quiz page</title>
+    <style>
+      /*navbar style*/
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Times New Roman", Times, serif;
+        height: 100%;
+        width: 100%;
+        background-color: #1e83cd;
+        box-sizing: border-box;
+      }
+
+      .navbar {
+        background-color: #333;
+        overflow: hidden;
+      }
+
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      /* quiz page style*/
+
+      .main {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+      }
+      #box {
+        margin: 0 auto;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        width: 40%;
+        background-color: white;
+        box-shadow: 0px 0px 5px gray;
+        border-radius: 5px;
+        padding: 15px;
+      }
+      .row {
+        width: 100%;
+        padding: 10px;
+        margin-left: 0;
+        margin-top: 5px;
+      }
+      .btn {
+        width: 100%;
+        padding: 5px;
+        font-size: 15px;
+        color: white;
+        background-color: #1e83cd;
+        border: none;
+        border-radius: 5px;
+      }
+      /* footer style*/
+      .footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 0%;
+      }
+    </style>
+  </head>
+  <body>
+    <!--navbar-->
+    <div class="navbar">
+      <a href="frontpage.html">LoginPage</a>
+      <a href="quizpage.html">QuizPage</a>
+      <a href="notespage.html">NotesPage</a>
+    </div>
+    <!--quiz page-->
+    <div class="main">
+      <div id="box">
+        <h2 id="quesBox">1) This is dummy question</h2>
+        <div class="row">
+          <input
+            class="option"
+            type="radio"
+            value="a"
+            name="option"
+            id="option1"
+          />
+          <label for="option1"> Option 1</label>
+        </div>
+        <div class="row">
+          <input
+            class="option"
+            type="radio"
+            value="b"
+            name="option"
+            id="option2"
+          />
+          <label for="option2"> Option 2</label>
+        </div>
+        <div class="row">
+          <input
+            class="option"
+            type="radio"
+            value="c"
+            name="option"
+            id="option3"
+          />
+          <label for="option3"> Option 3</label>
+        </div>
+        <div class="row">
+          <input
+            class="option"
+            type="radio"
+            value="d"
+            name="option"
+            id="option4"
+          />
+          <label for="option4"> Option 4</label>
+        </div>
+        <button class="btn" onclick="submitQuiz()">Submit</button>
+      </div>
+    </div>
+    <!--footer page-->
+    <div class="footer">
+      <p>&copy; 2023 Education Website. All rights reserved.</p>
+    </div>
+    <!-- Rest of the page content goes here -->
+
+    <script>
+      // Quiz page
+      const quetions = [
+        {
+          que: "Which of the following markup language?",
+          a: "HTML",
+          b: "CSS",
+          c: " JavaScript",
+          d: "PHP",
+          correct: "a",
+        },
+        {
+          que: "What year was javascript launched?",
+          a: "1995",
+          b: "1996",
+          c: " 1994",
+          d: "none of the above",
+          correct: "b",
+        },
+        {
+          que: "What does CSS stands for?",
+          a: "Hypertext Markup Language",
+          b: "Cascading Style Sheet",
+          c: " Jason Object Notation",
+          d: "Halicopters Terminals Motorboats Lamborginis",
+          correct: "b",
+        },
+      ];
+
+      let index = 0;
+      let total = quetions.length;
+      let right = 0,
+        wrong = 0;
+      const quesBox = document.getElementById("quesBox");
+
+      const optionInputs = document.querySelectorAll(".option");
+      let data;
+      const loadQuestion = () => {
+        if (index === total) {
+          return endQuiz();
+        }
+        reset();
+        data = quetions[index];
+        quesBox.innerText = `${index + 1}) ${data.que}`;
+
+        optionInputs[0].nextElementSibling.innerText = data.a;
+        optionInputs[1].nextElementSibling.innerText = data.b;
+        optionInputs[2].nextElementSibling.innerText = data.c;
+        optionInputs[3].nextElementSibling.innerText = data.d;
+      };
+
+      const submitQuiz = () => {
+        const ans = getAnswer();
+        if (ans === data.correct) {
+          right++;
+        } else {
+          wrong++;
+        }
+        index++;
+        loadQuestion();
+        return;
+      };
+
+      const getAnswer = () => {
+        let answer;
+        optionInputs.forEach((input) => {
+          if (input.checked) {
+            answer = input.value;
+          }
+        });
+        return answer;
+      };
+
+      const reset = () => {
+        optionInputs.forEach((input) => {
+          input.checked = false;
+        });
+      };
+
+      const endQuiz = () => {
+        document.getElementById("box").innerHTML = `
+    <div style="text-align:center">
+    <h3> Thank you for playing the quiz </h3>
+    <h2> ${right} / ${total} are correct </h2>
+    </div>
+      `;
+      };
+      // initial call
+      loadQuestion();
+    </script>
+  </body>
+</html>
